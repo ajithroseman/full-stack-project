@@ -1,0 +1,188 @@
+/*BANNER SECTION*/
+
+/*banner slide*/
+.banner-slider {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* adjust height */
+  overflow: hidden;
+}
+
+.banner-slider .slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.banner-slider img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.banner-slider img.active {
+  opacity: 1;
+}
+
+ 
+        
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--forest), var(--sky-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+            color: var(--forest);
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sky-blue), var(--forest));
+            border-radius: 3px;
+        }
+        
+        .room-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 4rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .room-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .room-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .room-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .room-section:hover .room-image img {
+            transform: scale(1.05);
+        }
+        
+        .room-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 2rem;
+        }
+        
+        .room-content h3 {
+            font-size: 1.8rem;
+            color: var(--forest);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .room-content h3::before {
+            content: "★";
+            margin-right: 10px;
+            color: var(--sunrise);
+        }
+        
+        .room-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--forest);
+            font-weight: bold;
+        }
+        
+       
+        
+    @media (max-width: 768px) {
+    .room-section {
+        flex-direction: column;   /* Stack items vertically */
+        text-align: center;       /* Optional: center text */
+        padding: 0;
+    }
+
+    .room-image {
+        order: 1;
+        width: 100%;              /* Image takes full width */
+        margin-bottom: 1.5rem;    /* Space below image */
+    }
+
+    .room-image img {
+        height: auto;             /* Auto height for smaller screens */
+        max-height: 300px;        /* Limit if needed */
+    }
+
+    .room-content {
+        order: 2;
+        width: 100%;              /* Content takes full width */
+        padding: 1rem;            /* Reduce padding on small screens */
+        text-align: left;         /* Keep left-aligned text (or center if you prefer) */
+    }
+}
+        
+        
+

@@ -1,0 +1,507 @@
+/* fixed waterdrop background that stays while page scrolls */
+.waterdrop-fixed {
+  position: fixed;
+  inset: 0;                       /* top:0; right:0; bottom:0; left:0 */
+  background: url("../../../images/product/software/point-of-sales/point-of-sale-bg.png") center/cover no-repeat;
+  background-attachment: fixed;   /* keeps it fixed in supporting browsers */
+  z-index: -1;                    /* behind all content */
+  pointer-events: none;           /* clicks pass through */
+  opacity: 0.2;                     /* tweak if you want it faded */
+}
+.banner {
+  background: url("../../../images/product/software/point-of-sales/point-of-sales-banner.png") center/cover no-repeat;
+  height: 100vh;          /* adjust banner height */
+  display: flex;
+  align-items: center;    /* vertical center */
+  justify-content: center;/* horizontal center */
+  position: relative;
+  color: #fff;
+  z-index: 1;
+}
+
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0); /* dark overlay for text readability */
+}
+
+.banner-heading {
+  position: relative; /* ensures heading sits above overlay */
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+/* overview section*/
+/* Section wrapper */
+.overview-section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center; /* centers the heading */
+}
+
+/* Main heading (centered on top) */
+.overview-heading {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #0048b4;
+}
+
+.overview-content {
+  display: flow-root;
+  text-align: left;
+}
+.overview-image {
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 20px;
+  width: clamp(260px, 40%, 500px);
+}
+
+/* Left image */
+.overview-image img {
+  
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;
+}
+
+/* Right text */
+.overview-text {
+  text-align: left;
+  max-width: none;
+  background-color: white;
+  padding: 0 20px 20px 20px;
+}
+
+.overview-text h3 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #3b82f6;
+}
+
+.overview-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+/* Clear fix - ensures wrapping works correctly */
+.overview-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .overview-image {
+    float: none;
+    width: 100%;
+    margin: 0 0 20px;
+  }
+  .overview-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .overview-text {
+    text-align: center;
+  }
+}
+
+/* ---------- Key Features (separate) ---------- */
+.key-features { 
+   padding: 20px 20px;
+  background: url("../../../images/product/software/point-of-sales/point-of-sales-key-features.png")
+              center/cover no-repeat;
+  color: #222;
+  position: relative;
+  z-index: 1;
+}
+
+/* optional overlay for text readability */
+.key-features::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.8); /* lighten/darken as needed */
+  z-index: 0;
+}
+.key-features .kf-inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+   position: relative;
+  z-index: 1; /* ensures content above overlay */
+}
+
+/* section title (center) */
+.kf-title{
+  font-size: 2rem;
+  margin-bottom: 28px;
+  color: #3b82f6;
+  z-index: 1;
+}
+
+/* grid */
+.kf-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* box style */
+.kf-box{
+  background: rgba(255,255,255);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+  text-align: left;
+  overflow: hidden;
+
+  /* initial hidden state (offscreen left) */
+  transform: translateX(-120%);
+  opacity: 0;
+  transition: transform 600ms cubic-bezier(.2,.9,.2,1), opacity 600ms ease;
+}
+
+/* staggered delays when section becomes 'in-view' */
+.key-features.in-view .kf-box:nth-child(1){ transition-delay: 0.08s; }
+.key-features.in-view .kf-box:nth-child(2){ transition-delay: 0.20s; }
+.key-features.in-view .kf-box:nth-child(3){ transition-delay: 0.32s; }
+.key-features.in-view .kf-box:nth-child(4){ transition-delay: 0.44s; }
+.key-features.in-view .kf-box:nth-child(5){ transition-delay: 0.56s; }
+.key-features.in-view .kf-box:nth-child(6){ transition-delay: 0.68s; }
+
+/* final visible state */
+.key-features.in-view .kf-box{
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* headings & lists inside boxes */
+.kf-box h4{ 
+    margin: 0 0 10px 0;
+    font-size: 1.4rem; 
+    color: #3b82f6;
+}
+.kf-box ul{ 
+    margin: 0; 
+    font-size: 1.2rem; 
+    line-height: 1.45; 
+    list-style: none;
+    text-align: justify;
+}
+/*
+.kf-box ul ::marker {
+    color: #3b82f6;
+}*/
+
+/* Responsive: 2 columns then 1 column */
+@media (max-width: 1100px){
+  .kf-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px){
+  .kf-grid{ grid-template-columns: 1fr; gap: 16px; }
+  .kf-box{ transform: translateX(-40%); } /* softer start on mobile */
+  .key-features.in-view .kf-box{ transform: translateX(0); }
+}
+
+/* ===== Modern redesign for L/R tabs  ===== */
+
+        .container {
+            
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 2rem;
+            text-align: center;
+            color: #0048b4;
+            position: relative;
+            overflow: hidden;
+             /* keep panels visually light but let bg show */
+  background: rgba(0, 140, 255, 0.1);   /* change 0.64 lower -> more watermark, higher -> more contrast */
+  border-radius: 10px;
+  padding: 2.4rem; /* keep your spacing similar */
+  position: relative; /* keep stacking */
+
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .lr-tabs {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            min-height: 600px;
+        }
+
+        .lr-nav {
+            background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+            border-right: 1px solid #e2e8f0;
+            padding: 1rem;
+             /* keep panels visually light but let bg show */
+  background: rgba(0, 140, 255, 0.1);   /* change 0.64 lower -> more watermark, higher -> more contrast */
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 2.4rem; /* keep your spacing similar */
+  position: relative; /* keep stacking */
+
+        }
+
+        .lr-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .lr-list button {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .lr-list button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .lr-list button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+
+        .lr-list button:hover::before {
+            left: 100%;
+        }
+
+        .lr-list button[aria-selected="true"] {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.3);
+            border-color: #1d4ed8;
+        }
+
+        .lr-list button[aria-selected="true"]::after {
+            content: '→';
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50%) translateX(-10px); }
+            to { opacity: 1; transform: translateY(-50%) translateX(0); }
+        }
+
+        .rt-content {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-panel {
+            padding: 3rem;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            min-height: 100%;
+            text-align: justify;
+             /* keep panels visually light but let bg show */
+  background: rgba(255,255,255,0.5);   /* change 0.64 lower -> more watermark, higher -> more contrast */
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 10px 26px rgba(2,6,23,0.06);
+  border-radius: 10px;
+  padding: 2.4rem; /* keep your spacing similar */
+  position: relative; /* keep stacking */
+
+        }
+
+        .tab-panel.show {
+            opacity: 1;
+            position: relative;
+        }
+
+        .tab-panel h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        
+
+        .tab-panel h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #334155;
+            margin: 2rem 0 1rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .tab-panel p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin: 1rem 0 2rem 1rem;
+            
+        }
+
+        .tab-panel ul {
+            margin: 1rem 0 2rem 1rem;
+            
+        }
+
+        .tab-panel li {
+            list-style: none;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+            position: relative;
+            
+        }
+
+
+        .tab-panel strong {
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .lr-tabs {
+                grid-template-columns: 280px 1fr;
+            }
+            
+            .tab-panel {
+                padding: 2rem;
+            }
+        }
+
+ /* ---------- Mobile friendly overrides (append only) ---------- */
+@media (max-width: 768px) {
+  .lr-list{
+    padding: 0;
+  }
+  /* Make main layout stack */
+  .lr-tabs {
+    grid-template-columns: 1fr;  /* one column, nav on top, content below */
+  }
+
+  /* Turn tab list into a 2x4 grid */
+  .lr-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns */
+    gap: 10px;
+    padding: 10px;
+    overflow: visible;
+    justify-items: center; /* center buttons */
+  }
+
+  .lr-list li {
+    width: 100%;
+  }
+
+  .lr-list button {
+    width: 100%;
+    text-align: center;
+    min-width: auto;
+  }
+}
+
+
+/* make hidden explicit (safe) */
+.tab-panel[hidden] {
+  display: none;
+}
+
+/* initial state for panels when visible but not .show */
+.tab-panel {
+  opacity: 0;
+  transform: translateY(10px);
+  /* keep existing positioning rules */
+  transition: none; /* we use animation for entrance to be reliable */
+  will-change: opacity, transform;
+}
+
+/* entrance animation (runs when .show is added) */
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* play animation when .show class is present */
+.tab-panel.show {
+  display: block;            /* ensures visible if previously hidden */
+  opacity: 1;                /* final state */
+  transform: translateY(0);
+  animation: panelIn 360ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+
+
+/* respect reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel.show {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

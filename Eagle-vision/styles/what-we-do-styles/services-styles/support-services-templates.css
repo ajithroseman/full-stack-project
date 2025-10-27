@@ -1,0 +1,151 @@
+.banner {
+    position: relative;
+    width: 100%;
+    height: 800px; /* adjust height as you need */
+    background: url('../../../images/services/template-support-banner.png') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-overlay {
+    text-align: center;
+    color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+}
+
+.banner-overlay h1 {
+    font-size: 2.5rem;
+    margin: 0 0 10px;
+}
+
+.banner-overlay h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* Intro Section */
+.intro {
+    padding: 90px 20px;
+    background: linear-gradient(135deg, #e0e7ff, #f0fdf4);
+    position: relative;
+}
+.intro .container {
+    text-align: justify;
+}
+.intro p {
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: #0f172a;
+}
+
+/* Ideal For Section */
+.ideal-for {
+  padding: 100px 20px;
+  background: linear-gradient(120deg, #f0f9ff, #ecfdf5);
+}
+.ideal-for .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.ideal-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  letter-spacing: 0.5px;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+.ideal-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: #3b82f6;
+  margin: 20px auto;
+  border-radius: 3px;
+}
+
+/* Flex cards */
+.ideal-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+.ideal-cards .card {
+  flex: 1 1 calc(33.333% - 30px);
+  min-width: 260px;
+  max-width: 360px;
+  padding: 38px 28px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px; /* Soft, pleasant rounding */
+  text-align: left;
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #1e293b;
+  box-shadow: 0 4px 22px 0 #c7d2fe33;
+  transition: box-shadow 0.25s, transform 0.2s;
+}
+.ideal-cards .card:hover {
+  background: #f3f4f6;
+  box-shadow: 0 8px 26px #10b98133;
+  transform: translateY(-6px) scale(1.03);
+}
+
+/* Key Features */
+.key-features {
+  padding: 100px 20px;
+  background: linear-gradient(to right, #ecfccb, #f0f9ff);
+}
+.kf-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 55px;
+  font-weight: 700;
+  color: #064e3b;
+}
+.kf-title::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 3.5px;
+  background: #10b981;
+  margin: 18px auto;
+  border-radius: 3px;
+}
+/*.kf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}*/
+/*.kf-card {
+  padding: 32px 22px;
+  border-radius: 7px;
+  background: #ffffff;
+  border: 1.5px solid #d1d5db;
+  box-shadow: 0 3px 16px #fde68a66;
+  transition: box-shadow 0.25s, transform 0.18s;
+}*/
+/*.kf-card:hover {
+  box-shadow: 0 10px 36px #f59e0b33;
+  transform: translateY(-6px) scale(1.03);
+}*/
+.kf-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 10px;
+}
+.kf-desc {
+  font-size: 1.03rem;
+  line-height: 1.6;
+  color: #374151;
+  text-align: justify;
+  hyphens: auto;
+}
+
+

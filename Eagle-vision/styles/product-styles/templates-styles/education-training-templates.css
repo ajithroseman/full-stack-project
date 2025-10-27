@@ -1,0 +1,747 @@
+/* Banner 1 */
+.banner {
+  position: fixed !important;
+  top: 0 !important;
+  z-index: 10;
+  height: 100vh;
+  width: 100%;
+  background: url("../../../images/product/templates/education-training-banner.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+/* Add this to create space for the content to scroll over the banner */
+body {
+  position: relative;
+}
+/* Content wrapper to push content below the banner */
+.content-wrapper {
+  position: relative;
+  z-index: 20;
+  margin-top: 100vh; /* This pushes content below the fixed banner */
+  background: white; /* Ensure content has background to cover the banner */
+}
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3); /* dark overlay */
+}
+
+.banner-overlay {
+  position: relative;
+  text-align: center;
+  z-index: 1; /* text above overlay */
+}
+
+/* fade-in effect for all text inside banner */
+.banner-content h1,
+.banner-content p {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+.banner-content h1{
+  font-size: 4rem;
+}
+.banner-content p {
+  font-size: 1.5rem;
+}
+/* delay each element slightly for a stagger effect */
+.banner-content h1 { animation-delay: 0.2s; }
+.banner-content p  { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 768px){
+  .banner {
+    height: 40vh;
+  }
+  .content-wrapper {
+    margin-top: 40vh;
+  }
+  .banner-content h1{
+  font-size: 2rem;
+}
+.banner-content p {
+  font-size: 1.2rem;
+}
+}
+
+/*secondary nav*/
+
+ /* Secondary Navigation (Sticky Version) */
+        .secondary-nav {
+            position: fixed;
+            top: 80px; /* Below the main nav */
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 2rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #e9ecef;
+            z-index: 1000;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-nav.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .secondary-nav__grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .secondary-nav__link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            color: #2c3e50;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+
+        @media (min-width: 769px) {
+        .secondary-nav__link:hover {
+            background: #e3f2fd;
+            color: #499bff;
+        }
+
+
+        .secondary-nav__link .icon {
+            
+            transition: transform 0.3s ease;
+        }
+      }
+        .secondary-nav__link.active {
+            background: #499bff;
+            color: white;
+        }
+        .secondary-nav__link:hover .icon {
+            transform: translateX(3px);
+        }
+
+@media (max-width: 768px) {
+  .secondary-nav__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-rows: repeat(2, auto);   /* 2 rows */
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .secondary-nav__link {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.3rem;
+    text-align: center;
+    justify-content: center;
+    flex-direction: row; /* Keep icon and text side by side */
+    gap: 0.3rem; /* Smaller gap for mobile */
+  }
+
+  .secondary-nav {
+    top: 60px;
+    padding: 0.5rem 0;
+  }
+
+  .secondary-nav__link .icon {
+    font-size: 1.1rem;
+  }
+}
+
+/* scroll link */
+.on-this-page {
+  margin: 0 auto;
+  padding: 3rem;
+  background-color: #ddd;
+  position: relative;
+  z-index: 100;
+}
+
+/* Small uppercase heading */
+.on-this-page__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+/* Grid for links (2 columns) */
+.on-this-page__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #b4b2b2;
+  border-left: 1px solid transparent; /* keeps spacing consistent */
+}
+
+/* Each link */
+.on-this-page__link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 0;
+  font-size: 2rem;
+  color: #499bff;
+  text-decoration: none;
+  border-bottom: 1px solid #b4b2b2;
+  margin-right: 2rem;
+  transition: color 0.2s ease;
+}
+
+/* Remove right margin on right column */
+.on-this-page__link:nth-child(2n) {
+  margin-right: 0;
+}
+
+/* Hover effect */
+.on-this-page__link:hover {
+  border-bottom: 2px solid #0257c0;
+  color: #0257c0;
+}
+/* Down arrow */
+.on-this-page__link .icon {
+  font-size: 1.5rem;
+  color: #499bff;
+  margin-left: 0.5rem;
+}
+.on-this-page__link:hover .icon {
+  color: #0257c0;
+}
+
+
+/* Responsive: stack on small screens */
+@media (max-width: 768px) {
+  .on-this-page__grid {
+    grid-template-columns: 1fr;
+  }
+  .on-this-page__link {
+    margin-right: 0;
+  }
+}
+
+
+html, body {
+    overflow-x: hidden;
+}
+/* ===== BANNER 2 ===== */
+        .banner-2 {
+            position: relative;
+            background: url('../../../images/product/templates/education-training-banner2.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            height: 50vh;
+        }
+
+        .banner-2-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 2rem;
+        }
+
+        .banner-2-content {
+            max-width: 800px;
+            width: 100%;
+            height: 380px;
+            background: #7f2d8a;
+            color: white;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 6px solid #499bff;
+            
+            /* Initial state - hidden off-screen to the right */
+            transform: translateX(100vw);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .banner-2-content.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .banner-2-content h2 {
+           font-size: 2rem;
+           color: #499bff;
+           margin-bottom: 20px;
+        }
+
+        .banner-2-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .banner-2-overlay {
+                justify-content: center;
+                padding: 0 2%;
+            }
+
+            .banner-2-content {
+                max-width: 90%;
+                padding: 2rem;
+                margin: 0 auto;
+            }
+
+            .banner-2-content h2 {
+                font-size: 2rem;
+            }
+
+            .banner-2-content p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner-2-content {
+                padding: 1.5rem;
+            }
+
+            .banner-2-content h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .banner-2-content p {
+                font-size: 0.95rem;
+            }
+        }
+
+
+
+/* ===== BANNER 3 ===== */
+        .banner-3 {
+            position: relative;
+            background: url('../../../images/product/templates/education-training-banner3.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            height: 50vh;
+        }
+
+        .banner-3-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2rem;
+        }
+
+        .banner-3-content {
+            max-width: 800px;
+            width: 100%;
+            height: 400px;
+            background: #7f2d8a;
+            color: white;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 6px solid #499bff;
+            
+            /* Initial state - hidden off-screen to the right */
+            transform: translateX(-100vw);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .banner-3-content.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .banner-3-content h2 {
+           font-size: 2rem;
+           color: #499bff;
+           margin-bottom: 20px;
+        }
+
+.banner-3-content li {
+  font-size: 1.3rem;
+}
+.banner-3-content ul {
+  list-style: none;
+  font-size: 1.3rem;
+}
+
+.banner-3-content ul li {
+  position: relative;
+  margin-bottom: 0.3rem;
+}
+
+/* Responsive Design */
+        @media (max-width: 768px) {
+            .banner-3-overlay {
+                justify-content: center;
+                padding: 0 2%;
+            }
+
+            .banner-3-content {
+                max-width: 90%;
+                padding: 2rem;
+                margin: 0 auto;
+            }
+
+            .banner-3-content h2 {
+                font-size: 2rem;
+            }
+
+            .banner-3-content li {
+                font-size: 1.2rem;
+            }
+            .banner-3{
+              height: 43vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner-3-content {
+                padding: 1.5rem;
+                height: auto;
+            }
+
+            .banner-3-content h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .banner-3-content li {
+                font-size: 0.95rem;
+            }
+        }
+
+
+/* key features*/
+.feature-section {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 4rem 2rem 2rem 2rem;
+  background: #eeeeee;
+  
+}
+
+.feature-box {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+  background-color: antiquewhite;
+  padding: 2rem;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateX(0);
+  transition: all 0.9s ease;
+  z-index: 1;
+}
+
+.sep-heading{
+           font-size: 2rem;
+           color: #499bff;
+           padding: 2rem;
+           text-align: center;
+}
+.feature-box h2 {
+  color: #499bff;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-box ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+.feature-box ul li {
+  position: relative;
+  margin-bottom: 0.4rem;
+}
+
+
+/* Slide-in states */
+.slide-from-left { 
+  transform: translateX(-90%);
+  box-shadow: 6px 6px 12px rgba(0,0,0,0.2);
+  text-align: justify;
+ }
+.slide-from-right { 
+  transform: translateX(90%);
+  box-shadow: 6px 6px 12px rgba(0,0,0,0.2);
+  text-align: justify;
+ }
+.show { transform: translateX(0); opacity: 1; }
+
+.feature-section-center {
+  padding: 4rem 2rem 4rem 2rem;
+  background: #eeeeee;
+}
+.slide-from-center { 
+  margin: 0 auto;
+  transform:translateY(50px);
+  align-items: center;
+}
+.slide-from-center { 
+  transform: translateY(-100%); 
+  box-shadow: 6px 6px 12px rgba(0,0,0,0.2)
+}
+.show {
+  
+  transform: translate(0, 0);
+  opacity: 1;
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .feature-section { 
+    flex-direction: column; 
+    padding: 2rem 1rem; 
+    align-items: stretch; 
+  }
+  .feature-box {
+    max-width: 100%;
+    margin-bottom: 1.2rem;
+    padding: 1.2rem;
+    box-shadow: 6px 6px 10px rgba(0,0,0,0.08);
+    z-index: 2;
+    /* fallback visible state if .show wasn't applied */
+    opacity: 1 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+  }
+
+  .slide-from-left, .slide-from-right, .slide-from-center { 
+    transform: none !important; 
+    -webkit-transform: none !important; 
+  }
+  .feature-box h2 {
+    font-size: 1rem;
+  }
+  .feature-box ul {
+    font-size: 0.95rem;
+  }
+  .feature-section {
+    padding: 0 1rem;
+  }
+  .feature-section-center {
+    padding: 0 1rem;
+  }
+}
+
+
+/* addons section */
+.addons {
+  background-color: rgba(76, 100, 55, 0.521);
+  padding-bottom: 50px;
+}
+.addons-title {
+  font-size: 2rem;
+  color: #499bff;
+  padding: 2rem;
+  text-align: center;   
+}
+
+.container {
+  display: flex;
+  gap: 40px;
+  margin: 0 20px;
+  align-items: stretch;   /* children get same computed height */
+}
+
+/* TEXT column: controls the height (compact around content) */
+.addon-text {
+  flex: 1 1 0;                 /* allow grow/shrink */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;     /* vertically center content */
+  background: #235540;
+  padding: 40px;
+  box-sizing: border-box;
+  min-height: 0;               /* important for flex children */
+}
+
+/* IMAGE column: must be able to shrink and stretch to match sibling */
+.addon-image {
+  flex: 1 1 0;                 /* allow shrink/grow, no intrinsic basis */
+  display: flex;               /* lets the img child stretch */
+  align-items: stretch;        /* img will stretch vertically to fill column */
+  min-height: 0;               /* prevents flexbox overflow issues */
+  overflow: hidden;            /* hide any overflow from object-fit if needed */
+}
+
+/* Image: follow the textbox height exactly */
+.addon-image img {
+  width: 100%;                 /* fills the column's width */
+  height: 400px;               /* IMPORTANT: match the column (and thus the text) height */
+  object-fit: cover;           /* fills area without distortion; will crop if needed */
+  display: block;              /* removes inline-gap artifacts */
+}
+
+.addon-text ul {
+    margin: 0 0 20px 20px;
+    color: #ffffff;
+    font-size: 1.2rem;
+    list-style: none;
+}
+
+.addon-text li {
+  margin-bottom: 8px;
+}
+
+
+/* Responsive: stack on small screens */
+@media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack items vertically */
+                gap: 20px; /* Reduce gap between items */
+                margin: 0 15px; /* Adjust side margins */
+            }
+            
+            .addon-image, .addon-text {
+                flex: none; /* Reset flex properties for vertical layout */
+                width: 100%; /* Full width for both sections */
+            }
+            
+            .addon-image img {
+                height: 250px; /* Adjust image height for mobile */
+                box-shadow: 0 8px 8px rgba(0,0,0,0.5); /* Adjust shadow for mobile */
+            }
+            
+            .addon-text {
+                padding: 25px; /* Reduce padding for mobile */
+            }
+            
+            .addons-title {
+                font-size: 1.7rem; /* Slightly smaller title */
+                padding: 1rem; /* Reduce padding */
+            }
+            
+            .addon-text ul {
+                font-size: 1rem; /* Slightly smaller font for list items */
+                margin: 0 0 15px 15px; /* Adjust list margins */
+            }
+        }
+
+
+
+/*scroll section*/
+    .scroll-container {
+      position: relative;
+             /* keeps space on left & right */
+      padding: 0 100px;       /* centers the section */
+      display: flex;
+      align-items: center;
+      height: 400px;
+      background-color: #eeeeee;
+    }
+
+    .cards-wrapper {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 20px;
+      padding: 10px 20px;
+    }
+
+    .cards-wrapper::-webkit-scrollbar {
+      display: none; /* hide scrollbar */
+    }
+
+    .card {
+      flex: 0 0 250px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 15px;
+    }
+
+    .card img {
+      max-width: 100%;
+      border-radius: 8px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      margin: 15px 0 10px;
+      font-size: 18px;
+    }
+
+    .card a {
+      display: inline-block;
+      text-decoration: none;
+      background: #007BFF;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    .card a:hover {
+      background: #0056b3;
+    }
+
+    /* Buttons */
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 50%;
+      font-size: 20px;
+      z-index: 2;
+    }
+
+    .scroll-btn.left {
+      left: 10px;
+    }
+
+    .scroll-btn.right {
+      right: 10px;
+    }
+@media (max-width: 768px){
+      .scroll-container {
+        padding: 0 10px;
+      }
+    }

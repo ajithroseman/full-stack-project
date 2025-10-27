@@ -1,0 +1,799 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+               Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Keep content above the fixed watermark layer */
+
+
+/* === Fixed Hero + Bottom→Top Watermark (px-based split) === */
+:root{
+  --hero-url: url("../../../images/services/consulting-services/consulting-services-banner.jpg");
+  --wm-opacity: .20;
+  --split: 100vh;                /* JS will override in px */
+  --split-fudge: 3px;         /* tiny nudge to kill hairline gaps */
+  --clip-adjust: -25px;
+   --clip-overlap: 2px;
+}
+body{ isolation: isolate; }
+
+/* Two fixed layers that paint the same image behind everything */
+.hero-top,
+.hero-bottom{
+  position: fixed;
+  inset: 0;
+  z-index: -1;                 /* behind content/navbars */
+  pointer-events: none;
+  background: var(--hero-url) center / cover no-repeat;
+
+  /* perf */
+ /* remove background-attachment: fixed if Chrome is misbehaving.
+     If you prefer to keep it, comment the next line out. */
+  /* background-attachment: fixed; */
+
+  /* compositing / GPU hints for Chrome/WebKit */
+  will-change: clip-path, opacity, background-position;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+}
+
+/* Top (crisp) portion from top down to the split line (use 100vh, not %) */
+.hero-top{
+  /* bottom cut = viewport height - splitPx */
+    clip-path: inset(0 0 calc(100vh - calc(var(--split) + var(--clip-adjust) - var(--clip-overlap))) 0);
+  opacity: 1;
+}
+
+/* Bottom (watermark) portion from the split line to bottom */
+.hero-bottom{
+  /* nudge top cut down by ~0.75px to avoid a hairline */
+  clip-path: inset(calc(var(--split) - var(--split-fudge) + var(--clip-adjust) - var(--clip-overlap)) 0 0 0);
+  opacity: var(--wm-opacity);
+}
+
+/* Banner is just spacer; hide inline <img> so the hero image itself doesn't scroll */
+.banner{ 
+  position: relative; 
+  height: 90vh; 
+  overflow: hidden; 
+  margin: 0; 
+}
+.banner > img{ 
+  display: none !important; 
+}
+
+.banner-content {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translate(-50%);
+  text-align: center;
+  color: #f5f3f3;
+  font-size: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 40%;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+/* ==============================
+   Responsive
+============================== */
+/* MOBILE: prevent fixed hero layers from looking "zoomed" inside a 40vh banner */
+/* MOBILE: banner 40vh, but keep clip-path layers at 100vh */
+@media (max-width:768px){
+  .banner{ 
+    height: 40vh !important;
+    min-height: 140px !important;
+    overflow: hidden !important;
+    background-position: top center !important;
+    background-size: 100% auto !important; /* width = viewport -> height scales -> no zoom */
+    background-repeat: no-repeat !important;
+    background-attachment: scroll !important; /* kill fixed-attachment quirks on mobile */
+    z-index: 5 !important;
+  }
+
+  /* hide inline img if you rely on background image for mobile view */
+  .banner > img { display: none !important; }
+
+  .banner-content{
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;                 /* place near top so it doesn't block main area */
+    transform: translateX(-50%) !important;
+    z-index: 40 !important;
+    width: calc(100% - 32px) !important;
+    max-width: 92% !important;
+    text-align: center !important;
+    color: #fff !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18) !important;
+    font-size: 0.95rem !important;
+  }
+
+  .banner-content h1{ margin:0 !important; font-size: clamp(1rem,5.5vw,1.6rem) !important; line-height:1.05 !important; }
+/* if you are using fixed hero layers behind the banner, stop them from viewport-scaling */
+  
+   /* if an inline <img> is available and you prefer it to show (no zoom), reveal it */
+  .banner > img {
+    display: block !important;    /* remove earlier display:none rules if present */
+    width: 100% !important;
+    height: 40vh !important;
+    object-fit: cover !important;    /* or object-fit: contain if you want no crop at all */
+    object-position: top center !important;
+  }
+}
+
+/*Below banner nav bar*/
+.section-nav {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 80px;
+  z-index: 1000;
+  padding: 20px 0;
+}
+
+.section-nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0.8rem 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+.section-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem;
+}
+
+/* Desktop hover effects only */
+@media (min-width: 769px) {
+  .section-nav a:hover {
+    color: #0277bd;
+    border-bottom: 2px solid #0277bd;
+  }
+}
+
+.section-nav a.active {
+  color: #0277bd;
+  border-bottom: 2px solid #0277bd;
+}
+
+/* Mobile styles - 3 columns, 2 rows */
+@media (max-width: 768px) {
+  .section-nav ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-rows: repeat(2, auto);   /* 2 rows */
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .section-nav li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .section-nav a {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 0.3rem;
+    font-size: 0.85rem;
+    border-bottom: none;
+  }
+
+  .section-nav {
+    top: 60px;
+    padding: 10px 0;
+  }
+}
+
+/* overview section*/
+/* Section wrapper */
+.overview-section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center; /* centers the heading */
+}
+
+/* Main heading (centered on top) */
+.overview-heading {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #0048b4;
+}
+
+.overview-content {
+  display: flow-root;
+  text-align: left;
+}
+.overview-image {
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 20px;
+  width: clamp(260px, 40%, 500px);
+}
+
+/* Left image */
+.overview-image img {
+  
+  width: 100%;
+  height: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;
+}
+
+/* Right text */
+.overview-text {
+  text-align: left;
+  max-width: none;
+  background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.overview-text h3 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #0277bd;
+}
+
+.overview-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+/* Clear fix - ensures wrapping works correctly */
+.overview-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.h3-head {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #3b82f6;
+  text-align: left;
+}
+
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .overview-image {
+    float: none;
+    width: 100%;
+    margin: 0 0 20px;
+  }
+  .overview-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .overview-text {
+    text-align: center;
+  }
+}
+
+/*  bussiness outcome section*/
+/* Cards container */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Individual card */
+.service-card {
+  flex: 1 1 calc(25% - 30px); /* 4 cards per row */
+  max-width: calc(25% - 30px);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.service-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.service-card h3 {
+  font-size: 1.2rem;
+  color: #1f40b8;
+  padding-left: 10px;
+}
+
+.service-card p {
+  padding: 0 10px;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: justify;
+  hyphens: auto;
+}
+.ux-ui-solutions-text h2 {
+  font-size: 2rem;
+  color: #0277bd;
+  padding-left: 1rem;
+  text-align: center;
+}
+.ux-ui-solutions-text p{
+  line-height: 1.6;
+  color: #333;
+  text-align: justify;
+  font-size: 1.1rem;
+  padding: 0 20px;
+}
+/* Responsive */
+@media (min-width: 1920px) {
+  .ux-ui-solutions-text h2 {
+    padding-left: 8rem;
+  }
+}
+@media (max-width: 1400px) {
+  .service-card { flex: 1 1 calc(33.333% - 30px); max-width: calc(33.333% - 30px); }
+}
+
+@media (max-width: 900px) {
+  .service-card { flex: 1 1 calc(50% - 30px); max-width: calc(50% - 30px); }
+}
+
+@media (max-width: 600px) {
+  .service-card { flex: 1 1 100%; max-width: 100%; }
+  .ux-ui-solutions-text p{
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .ux-ui-solutions-text{
+    padding: 20px;
+  }
+}
+
+/* Focus area Section */
+#Focus-areas {
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-slider-container {
+  position: relative;
+}
+
+.testimonial-slider {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.testimonial-slide {
+  min-width: 100%;
+  height: 600px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-content {
+  background: rgba(0,0,0,0.5);
+  padding: 20px 30px;
+  border-radius: 8px;
+  max-width: 800px;
+  text-align: center;
+  color: #fff;
+}
+
+.testimonial-content h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.testimonial-content p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.focus-areas-text h2 {
+  font-size: 2rem;
+  color: #0277bd;
+  padding-left: 1rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+/* Navigation Arrows */
+#Focus-areas .prev,
+#Focus-areas .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 22px;
+  z-index: 10;
+}
+
+#Focus-areas .prev { left: 15px; }
+#Focus-areas .next { right: 15px; }
+
+#Focus-areas .prev:hover,
+#Focus-areas .next:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .testimonial-content {
+    padding: 15px 20px;
+    font-size: 14px;
+  }
+
+  #Focus-areas .prev,
+  #Focus-areas .next {
+    padding: 8px 12px;
+    font-size: 18px;
+  }
+  .testimonial-slide {
+    height: 40vh;
+  }
+}
+
+/*Industries section*/
+#Featured-work {
+  
+  position: relative;
+  z-index: 1;
+  padding: 80px 20px;
+
+}
+#Featured-work .section-title {
+  font-size: 2rem;
+  color: #0277bd;
+  margin-bottom: 15px;
+  text-align: center;
+
+}
+
+#Featured-work .section-description {
+  text-align: justify;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.industries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.industry-card {
+  position: relative;
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.industry-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.industry-card .icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+  color: #2b771e;
+}
+
+.industry-card h3 {
+  font-size: 1.3rem;
+  color: #1f40b8;
+  margin-bottom: 10px;
+}
+
+.industry-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+  text-align: justify;
+  hyphens: auto;
+}
+
+
+
+.industry-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #industries {
+    padding: 60px 15px;
+  }
+  .industry-card {
+    padding: 20px 15px;
+  }
+  .industry-card h3 {
+    font-size: 20px;
+  }
+  .industry-card p {
+    font-size: 14px;
+  }
+  .section-description{
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+}
+/*why EVTech ? section*/
+#Latest-thinking {
+  
+  background: hsl(0, 0%, 98%);
+}
+
+.why-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 100%;
+  align-items: center;
+  height: 400px;
+}
+
+.why-left {
+  flex: 1 ;
+}
+
+.why-left h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #0277bd;
+}
+
+.why-left p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.why-right {
+  flex: 1 ;
+  position: relative;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+
+  /* Ensure text wraps properly */
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box; /* include padding in width */
+   /* New for smooth height change */
+  transition: height 0.4s ease;
+}
+
+.why-slider {
+  display: flex;
+  flex-direction: column;  /* stack slides vertically inside container */
+  width: 100%;             /* fill container */
+}
+
+.why-slide {
+  width: 100%;
+  display: none;
+  padding: 20px;
+}
+
+.why-slide.active {
+  display: block;
+}
+
+.why-slide h3 {
+  font-size: 1.2rem;
+  color: #1f40b8;
+  margin-bottom: 10px;
+}
+
+.why-slide p {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: #333;
+  word-break: break-word; /* force long words to wrap */
+  text-align:justify;
+  margin-bottom: 5px;
+}
+
+
+.why-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* text at top */
+  padding: 20px;
+}
+
+.why-buttons {
+  display: flex;
+  gap: 15px;            /* space between buttons */
+  padding-left: 20px
+}
+
+.why-buttons button {
+  width: 50px;
+  height: 50px;
+  background-color: #0277bd; /* green modern color */
+  color: #fff;
+  border: none;
+  border-radius: 8px;     /* slightly rounded square */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.why-buttons button:hover {
+  background-color: #1f40b8; /* darker on hover */
+}
+
+
+@media (max-width: 768px) {
+  .why-container {
+    flex-direction: column;  /* stack */
+    height: auto;            /* let content decide height */
+    gap: 20px;               /* reduce spacing for mobile */
+  }
+
+  .why-left,
+  .why-right {
+    flex: 1 1 100%;          /* full width each */
+    padding: 15px;
+  }
+
+  .why-buttons {
+    justify-content: center; /* center buttons on mobile */
+    padding-left: 0;
+  }
+}
+
+/* Analyst-recognition Section */
+#Analyst-recognition {
+  
+  padding: 90px 20px;
+}
+
+.insights-header {
+  margin: 0 auto 60px auto;
+}
+
+.insights-header h2 {
+  font-size: 2rem;
+  color: #0277bd;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.insights-header p {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+/* Insights Grid */
+.insights-grid {
+  display: flex;               /* switch from grid to flex for auto-centering */
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;     /* center last row */
+}
+
+/* Insight Card */
+.insight-card {
+  position: relative;
+  flex: 1 1 300px;             /* each card at least 300px */
+  max-width: 400px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 25px 22px;
+
+ 
+  /* Shadow only on left, right, and bottom */
+  box-shadow: 
+    -3px 3px 10px rgba(0,0,0,0.08), /* left */
+     3px 3px 10px rgba(0,0,0,0.08), /* right */
+     0 6px 15px rgba(0,0,0,0.1);    /* bottom */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  /* keep text above background overlay */
+  overflow: hidden;
+}
+
+
+.insight-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 
+    -5px 6px 18px rgba(0,0,0,0.12),
+     5px 6px 18px rgba(0,0,0,0.12),
+     0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Titles */
+.insight-card h3 {
+  font-size: 20px;
+  color: #0277bd;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* Paragraphs */
+.insight-card p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #Analyst-recognition {
+    padding: 60px 15px;
+  }
+  .insight-card {
+    padding: 20px;
+  }
+  .insights-header h2 {
+    font-size: 2rem;
+  }
+  .insights-header p {
+    font-size: 1rem;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+}
+

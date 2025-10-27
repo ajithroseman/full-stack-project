@@ -1,0 +1,646 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+               Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+}
+
+
+
+
+/* video banner*/
+
+.banner {
+  width: 100%;
+  height: 100vh;  /* disable it if you enable height:calc*/
+  overflow: hidden;
+  position: relative;
+  margin-top: 0px; /*shifts banner townwards*/
+ /* height: calc(100vh - 100px);*/ /*Enable it if adding top margin*/
+}
+
+.banner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* makes sure video fills without distortion */
+  display: block;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .banner {
+    margin-top: 0px; /* navbar height mobile */
+    height: 50vh;
+  }
+}
+
+/*Banner content*/
+.banner-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 80%;
+  font-size: 25px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/*.banner-content h1 {
+  font-size:  clamp(1.5rem, 5vw, 3rem);
+  margin-bottom: 10px;
+  text-shadow: 
+    0 0 8px rgba(255, 255, 0, 0.541),
+    0 0 15px rgba(255, 200, 50, 0.438);
+}
+
+.banner-content p {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  text-shadow: 
+    0 0 5px rgba(255, 255, 0, 0.6),
+    0 0 10px rgba(255, 200, 50, 0.5);
+}*/
+
+
+/* Mobile banner-content */
+@media (max-width: 768px) {
+  .banner-content {
+    width: 90%;
+    
+  }
+  
+  .banner-content h1 {
+    font-size: 1.2rem;
+
+  }
+  .banner-content p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Empty space */
+.video-spacer {
+  
+  background: rgb(255, 255, 255); /* your requested color */
+  height: 25px;               /* adjust height for more/less space */
+  width: 100%;
+  
+  
+}
+@media (max-width: 768px) {
+  .video-spacer {
+    height: 40px;
+  }
+}
+
+/*checkbox for product*/
+
+.product-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+/*giving back ground for flip with opacity */
+.product-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* cover full grid */
+  background: url("../images/flip-grid-background.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5; /* adjust 0 → 1 */
+  z-index: -1; /* push behind content */
+}
+.grid-row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.grid-square {
+  position: relative;
+  width: 25%;
+  margin-right: 0;
+  perspective: 1000px; /* For 3D flip effect */
+}
+
+.grid-square:last-child {
+  margin-right: 0;
+}
+
+
+.grid-square:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-front img,
+.flip-card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flip-card-back.text-back {
+  padding: 15px;
+  text-align: center;
+}
+
+.text-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+  text-align: center;
+  padding: 20px;
+}
+
+.text-front h2 {
+  margin-bottom: 10px; /* space between h2 and h3 */
+}
+
+.text-front h3 {
+  margin-top: 0; /* reset default top margin for consistency */
+  font-weight: 500;
+}
+
+.flip-card-back {
+  background: #f5f5f5;
+  transform: rotateY(180deg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.flip-card-back h2 {
+  margin-bottom: 10px; /* space after h2 */
+}
+
+.flip-card-back h3 {
+  margin-top: 0;       /* remove default top margin */
+  margin-bottom: 8px;  /* space after h3 */
+  font-weight: 500;
+}
+
+.flip-card-back p {
+  margin-top: 0;       /* remove default top margin */
+  text-align: justify;
+}
+
+/* Default: keep square shape */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* keeps square shape until expanded */
+  transform-style: preserve-3d;
+  transition: transform 0.6s, padding-bottom 0.3s ease;
+}
+
+/* Expanded state — remove square restriction */
+.flip-card-inner.expanded {
+  padding-bottom: 0;
+  height: auto;
+}
+
+/* Paragraph clamp */
+.flip-card-back p {
+  margin-top: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show only 3 lines */
+  -webkit-box-orient: vertical;
+}
+
+.flip-card-back p.expanded {
+  -webkit-line-clamp: unset;
+}
+
+/* Read More button */
+.read-more-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #189938;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.read-more-btn:hover {
+  background: #0f6a25;
+}
+
+/* Full screen detail card*/
+
+.detail-card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none; /* hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+
+/* Full-screen expanded card content */
+/* Full-screen overlay */
+#detailOverlay {
+  position: fixed;
+  inset: 0;
+  display: none;            /* flex container to center card */
+  justify-content: center;  /* horizontal centering */
+  align-items: center;      /* vertical centering */
+  background: rgba(0,0,0,0.7);
+  z-index: 10000;
+  overflow-y: auto;         /* scroll if card taller than viewport */
+  padding: 20px;
+}
+
+/* Headings & paragraph */
+.detail-card h2 {
+  margin: 0 0 15px 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.detail-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+}
+
+/* Optional: make paragraph also centered if needed */
+.detail-card p {
+  font-size: 1.2rem;
+  text-align: justify;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+.detail-card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+
+/* changes check card for expanded card color or etc*/
+
+.detail-card {
+  background: #fff;
+  width: 90%;
+  max-width: 600px;
+  height: 90vh;             /* your custom height */
+  overflow-y: auto;         /* scroll inside card if needed */
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+
+/* Close button */
+.detail-card .close-btn {
+  background: #189938;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: sticky;
+  top: 0;
+  right: 0;
+  margin-left: auto;
+  z-index: 10;
+}
+
+
+
+/* Responsive adjustments */
+/* 4 columns: default */
+.grid-square {
+  width: 25%; /* 100% ÷ 4 */
+}
+
+html, body {
+  overflow-x: hidden;
+}
+/* Tablet breakpoint — 2 columns */
+@media (max-width: 992px) {
+  .grid-row {
+    flex-wrap: wrap;
+  }
+  .grid-square {
+    width: calc(50% - 10px); /* 2 per row, subtracting gap */
+  }
+}
+
+/* Mobile breakpoint — still 2 columns, but smaller height if needed */
+@media (max-width: 768px) {
+  .grid-square {
+    width: 50% !important;
+    box-sizing: border-box;
+  }
+}
+
+/* COlor for text square*/
+
+.p-r1-c2 {
+  background-color: #341d55;
+}
+
+.p-r1-c4 {
+  background-color: #1B6AA8;
+}
+
+.p-r2-c1 {
+  background-color: #746FA8;
+}
+
+.p-r2-c3 {
+  background-color: #2f8fd0;
+}
+
+.p-r3-c2 {
+  background-color:#3498b3 ;
+}
+
+.p-r3-c4 {
+  background-color: #00a796;
+}
+
+.p-r4-c1 {
+  background-color: #4e36b6;
+}
+
+.p-r4-c3 {
+  background-color: #7f2d8a;
+}
+
+.p-r5-c2 {
+  background-color: #77629b;
+}
+
+.p-r5-c4 {
+  background-color: #3498b3;
+}
+
+.text-front,
+.text-back {
+  color: white;
+}
+.text-back p {
+ margin: 30px;
+}
+
+
+/* Mobile: Reduce heading size in grid square section */
+@media (max-width: 480px) {
+  .grid-square .flip-card-front h2,
+  .grid-square .flip-card-back h2 {
+    font-size: 1.2rem; /* smaller than desktop */
+    font-weight: 600;
+    line-height: 1.1;  /* optional tighter spacing */
+  }
+
+  .grid-square .flip-card-front h3,
+  .grid-square .flip-card-back h3 {
+    font-size: 0.8rem; /* smaller subtitle */
+    line-height: 1.1;   /* reduce spacing for mobile */
+    font-weight: 400;
+  }
+
+  .grid-square .flip-card-front p,
+  .grid-square .flip-card-back p {
+    display: none;
+  }
+  .read-more-btn {
+    margin-top: 5px;
+  }
+}
+
+/* industry intelegence section*/
+
+.grid-wrapper {
+  padding: 40px 20px;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  max-width: 1200px;
+  color: rgb(255, 255, 255);
+  background-color: #341d558a;
+}
+
+/* Horizontal scroll grid */
+.industry-grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto; /* allow horizontal scrolling */
+  padding-bottom: 10px;
+  max-width: 1200px; /* limit visible width */
+  scroll-behavior: auto;
+  user-select: none;
+  cursor: grab;
+  position: relative;
+
+}
+.industry-card .read-more-btn {
+  position: relative;
+  z-index: 10;
+}
+
+.industry-grid.active {
+  cursor: grabbing;
+}
+.industry-grid::after,
+.industry-grid::before {
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  pointer-events: none;
+}
+.industry-grid::after {
+  right: 0;
+  background: linear-gradient(to left, #f5f5f5, transparent);
+}
+
+.industry-grid::before {
+  left: 0;
+  background: linear-gradient(to right, #f5f5f5, transparent);
+}
+
+/* Hide scrollbar */
+.industry-grid::-webkit-scrollbar { display: none; }
+.industry-grid { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Card style */
+.industry-card {
+  flex: 0 0 280px; /* fixed width to allow scroll */
+  height: 450px;
+  background: #d8d8d8;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, height 0.3s;
+}
+/* scroll background*/
+.grid-wrapper {
+  position: relative;
+  background: url("../images/scroll-background.jpg") center/cover no-repeat;
+  padding: 40px;
+}
+.industry-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.industry-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  line-height: 1.5rem;   /* line height for each line */
+  min-height: 3rem;      /* reserve space for 2 lines */
+  text-align: center;
+}
+
+.industry-card p {
+  font-size: 1rem;       /* increase the font size */
+  line-height: 1.4rem;   /* better readability */
+  flex: 1;
+  overflow: hidden;      /* hide excess content */
+  max-height: 90px;      /* adjust max height as needed */
+  transition: max-height 0.3s;
+  text-align: center;
+  padding: 20px;
+}
+
+
+.industry-card.expanded {
+  height: auto;        /* let content define height */
+  max-height: 90vh;    /* don’t exceed viewport height */
+  overflow-y: auto;    /* scroll if content taller */
+}
+.industry-card.expanded p {
+  max-height: 80vh; /* adapt to screen */
+  overflow-y: auto;
+}
+
+.read-more-btn {
+  background: #189938;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px auto 0 auto;/* top margin + auto left/right to center */
+  align-self: flex-start;
+  font-weight: 500;
+  display: block;/* make margin auto work */
+}
+
+.read-more-btn:hover {
+  background: #0f6a25;
+}
+/* Prevent text selection while dragging the slider */
+.industry-grid.active * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Keep overlay fixed to viewport */
+
+/* Responsive adjustments for scroll cards */
+
+/* Large tablets and smaller desktops */
+@media (max-width: 1200px) {
+  .industry-card {
+    flex: 0 0 240px; /* slightly smaller card width */
+    height: 420px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .industry-card {
+    flex: 0 0 220px;
+    height: 400px;
+  }
+  .industry-card h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobile landscape & portrait */
+/* Let scroll grid use full width on smaller devices */
+@media (max-width: 768px) {
+  .industry-grid {
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+  }
+}
+
+
+/* Very small phones */
+@media (max-width: 480px) {
+  .industry-card {
+    flex: 0 0 150px;
+    height: 320px;
+  }
+  .industry-card h3 {
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+  .industry-card p {
+    line-height: 1.2; /* reduced from default ~1.5 */
+    padding: 0px;
+  }
+
+  .read-more-btn {
+    font-size: 13px;
+  }
+  
+  
+}

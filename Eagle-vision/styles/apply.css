@@ -1,0 +1,144 @@
+/* =========================
+   Apply Page
+   ========================= */
+.apply-section {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.apply-section h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #004080;
+  margin-bottom: 30px;
+}
+
+/* Form labels */
+.apply-section label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Form inputs */
+.apply-section input[type="text"],
+.apply-section input[type="email"],
+.apply-section input[type="tel"],
+.apply-section input[type="number"],
+.apply-section input[type="file"],
+.apply-section textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.apply-section input:focus,
+.apply-section textarea:focus {
+  border-color: #004080;
+  box-shadow: 0 0 5px rgba(0,64,128,0.2);
+  outline: none;
+}
+
+/* Submit button */
+.apply-section button {
+  width: 100%;
+  padding: 14px;
+  background: #004080;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.apply-section button:hover {
+  background: #0066cc;
+}
+.experience-options {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.experience-options input {
+  margin-right: 6px;
+}
+/* Custom tick-mark style for radios */
+.custom-check {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.custom-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 18px;
+  width: 18px;
+  background-color: #eee;
+  border: 1px solid #999;
+  border-radius: 4px; /* square box */
+}
+
+.custom-check input:checked ~ .checkmark {
+  background-color: #004080;
+  border-color: #004080;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Tick mark */
+.custom-check .checkmark:after {
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .apply-section {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .apply-section h1 {
+    font-size: 1.5rem;
+  }
+}
